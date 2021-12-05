@@ -81,9 +81,13 @@ public class BatchConfiguration {
     public Step helloStep() {
         System.out.println("helloStepメソッド実行！");
         return stepBuilderFactory.get("myHelloStep")
-                .tasklet(new MessageTasklet("hello"))//実行するTaskLetを指定
+//                .tasklet(new MessageTasklet("hello"))//実行するTaskLetを指定
+                .tasklet(messageTasklet)//実行するTaskLetを指定
                 .build();
     }
+
+    @Autowired
+    MessageTasklet messageTasklet;
 
     //--------------------------------------------------------
 
@@ -100,7 +104,8 @@ public class BatchConfiguration {
     public Step worldStep() {
         System.out.println("worldStepを実行");
         return stepBuilderFactory.get("myWorldStep")
-                .tasklet(new MessageTasklet("world!!"))
+//                .tasklet(new MessageTasklet("world!!"))
+                .tasklet(messageTasklet)
                 .build();
     }
 
