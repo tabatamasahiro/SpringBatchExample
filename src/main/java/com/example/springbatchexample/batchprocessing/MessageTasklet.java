@@ -15,6 +15,9 @@ public class MessageTasklet implements Tasklet {
     @Value("#{jobParameters[ccc] ?: 'ccc-init'}")
     String ccc;
 
+    @Value("#{jobParameters[ddd] ?: 'ddd-init'}")
+    String ddd;
+
 //    private final String message;
 //
 //    public MessageTasklet(String message) {
@@ -37,6 +40,7 @@ public class MessageTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         System.out.println("**************************");
         System.out.println("Message(ccc):" + ccc);
+        System.out.println("Message(ddd):" + ddd);
         System.out.println("**************************");
         if(ccc.equals("unko")){
             throw new RuntimeException();   //ExistStaus=5
