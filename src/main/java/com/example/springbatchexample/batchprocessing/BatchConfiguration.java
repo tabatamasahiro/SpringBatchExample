@@ -5,6 +5,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.step.tasklet.MethodInvokingTaskletAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,13 +83,23 @@ public class BatchConfiguration {
         System.out.println("helloStepメソッド実行！");
         return stepBuilderFactory.get("myHelloStep")
 //                .tasklet(new MessageTasklet("hello"))//実行するTaskLetを指定
-                .tasklet(messageTasklet)//実行するTaskLetを指定
+//                .tasklet(messageTasklet)//実行するTaskLetを指定
+                .tasklet(methodInvokingTaskletAdapter())//実行するTaskLetを指定
+//                .listener(new ItemFailureLoggerListener())
                 .build();
+    }
+
+    public MethodInvokingTaskletAdapter methodInvokingTaskletAdapter() {
+        MethodInvokingTaskletAdapter adapter = new MethodInvokingTaskletAdapter();
+        adapter.setTargetObject(exampleService);
+        adapter.setTargetMethod("doing");
+        return adapter;
     }
 
     @Autowired
     MessageTasklet messageTasklet;
-
+    @Autowired
+    ExampleService exampleService;
     //--------------------------------------------------------
 
     @Bean

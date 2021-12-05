@@ -38,6 +38,9 @@ public class MessageTasklet implements Tasklet {
         System.out.println("**************************");
         System.out.println("Message(ccc):" + ccc);
         System.out.println("**************************");
+        if(ccc.equals("unko")){
+            throw new RuntimeException();   //ExistStaus=5
+        }
         return RepeatStatus.FINISHED;
     }
 }

@@ -7,7 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBatchExampleApplication {
 
     public static void main(String[] args) {
-        System.exit(SpringApplication.exit(SpringApplication.run(SpringBatchExampleApplication.class, args)));
+
+        int exit = SpringApplication.exit(
+                SpringApplication.run(SpringBatchExampleApplication.class, args)
+                , () -> 99  //処理成功時のステータスコード
+        );
+        System.out.println(">>>> ExitStatus:" + exit);
+        System.exit(exit);
 
     }
 
