@@ -31,8 +31,11 @@ public class ExampleService {
      * @return
      */
     public ExitStatus doing() {
-        System.out.println("=====> ExampleService");
-        ExitStatus result = ExitStatus.COMPLETED;//後続へ続く
+        System.out.println("=======================================");
+        System.out.println("ExampleService:Step=====> ExampleService");
+        System.out.println("=======================================");
+        ExitStatus result = ExitStatus.COMPLETED;//後続へ続く    .変換あとの終了コードは０らしい。
+//        ExitStatus result = ExitStatus.FAILED;//後続へ続く    .変換あとの終了コードは１らしい。
 //        ExitStatus result = ExitStatus.STOPPED;//後続へ続かない。このStepで終了
         return result;
     }

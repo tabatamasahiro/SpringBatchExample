@@ -97,6 +97,8 @@ public class BatchConfiguration {
     }
 
     @Autowired
+    HogeTasklet hogeTasklet;
+    @Autowired
     MessageTasklet messageTasklet;
     @Autowired
     ExampleService exampleService;
@@ -107,6 +109,7 @@ public class BatchConfiguration {
         System.out.println("barJobメソッドを実行");
         return jobBuilderFactory.get("bbb")
                 .flow(helloStep())//実行するStep
+                .next(hoge())//実行するStep
                 .next(worldStep())//実行するStep
                 .end()
                 .build();
@@ -119,6 +122,15 @@ public class BatchConfiguration {
                 .tasklet(messageTasklet)
                 .build();
     }
+
+
+    public Step hoge() {
+        System.out.println("hogeを実行");
+        return stepBuilderFactory.get("myHoge")
+                .tasklet(hogeTasklet)
+                .build();
+    }
+
 
 //    @Bean
 //    public Step step1() {

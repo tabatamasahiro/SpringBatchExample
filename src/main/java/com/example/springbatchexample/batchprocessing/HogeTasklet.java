@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @StepScope
-public class MessageTasklet implements Tasklet {
+public class HogeTasklet implements Tasklet {
 
     @Value("#{jobParameters[ccc] ?: 'ccc-init'}")
     String ccc;
@@ -39,11 +39,11 @@ public class MessageTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         System.out.println("**************************");
-        System.out.println("MessageStep(ccc):" + ccc);
-        System.out.println("MessageStep(ddd):" + ddd);
+        System.out.println("HogeStep=Message(ccc):" + ccc);
+        System.out.println("HogeStep=Message(ddd):" + ddd);
         System.out.println("**************************");
         if(ccc.equals("unko")){
-            throw new RuntimeException();   //ExistStaus=5
+            throw new RuntimeException();   //ExistStausは正常終了のものがでる
         }
         return RepeatStatus.FINISHED;   //実行する作業がこれ以上ないことを呼び出し元に通知するコールバック
     }
